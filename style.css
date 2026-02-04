@@ -1,0 +1,166 @@
+:root {
+  --side-padding: 12px;     /* left/right padding */
+  --tableau-gap: 8px;       /* horizontal gap between tableau columns */
+  --stack-gap: 54px;        /* vertical gap between stacked cards (50% more) */
+  --card-w: 12.5vw;         /* slightly smaller to fit 7 columns */
+  --card-h: calc(var(--card-w) * 1.45);
+}
+
+body {
+  margin: 0;
+  background: #0b6623;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: white;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 32px var(--side-padding);
+  background: #063f1c;
+  box-sizing: border-box;
+}
+
+header .left, header .right {
+  display: flex;
+  gap: 14px;
+}
+
+header .center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+button, .button {
+  background: #1e8f4a;
+  border: none;
+  color: white;
+  padding: 36px 28px; /* tall buttons */
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+button:hover, .button:hover {
+  background: #27b35d;
+}
+
+/* ===== GAME AREA ===== */
+#game {
+  padding: 12px;
+}
+
+.top-row {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--tableau-gap);
+  margin-bottom: 20px;
+  padding: 0 var(--side-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#foundations {
+  display: flex;
+  gap: var(--tableau-gap);
+}
+
+#tableau {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tableau-gap);
+  padding: 0 var(--side-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===== PILES ===== */
+.pile {
+  width: var(--card-w);
+  height: var(--card-h);
+  border: 2px dashed rgba(255,255,255,0.35);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 12px;
+  border: 1px solid black;
+  user-select: none;
+  touch-action: manipulation;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tableau .card {
+  top: calc(var(--stack-gap) * var(--i,0));
+}
+
+.foundation .card {
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* SETTINGS PANEL */
+#settings {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-panel {
+  background: #222;
+  padding: 22px;
+  width: 94%;
+  max-width: 720px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 14px;
+}
+
+.suit-section {
+  margin-top: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 12px;
+}
+
+/* SETTINGS CARDS CONSTRAINT */
+#card-editor img,
+.editor-back,
+.editor-card img {
+  max-width: 60px;       /* restrict width */
+  max-height: 90px;      /* restrict height */
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* preserve aspect ratio */
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #555;
+  cursor: pointer;
+  display: block;
+}
